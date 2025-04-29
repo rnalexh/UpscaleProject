@@ -51,10 +51,10 @@
     import Upscaler from 'https://cdn.skypack.dev/upscaler';
 
     const upscaler = new Upscaler({
-        model: {
-            path: 'https://models.upscalerjs.com/esrgan/1x', // modelo padrão ESRGAN 1x
-        }
+      model: './esrgan-model-1x/models/esrgan/1x/model.json',
     });
+
+
 
     const uploadInput = document.getElementById('upload');
     const originalImg = document.getElementById('originalImage');
