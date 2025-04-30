@@ -1,92 +1,24 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <title>Upscale de Imagem com JavaScript</title>
-  <style>
-    body {
-      font-family: sans-serif;
-      text-align: center;
-      padding: 20px;
-    }
-    .image-container {
-      display: flex;
-      justify-content: center;
-      gap: 40px;
-      margin-top: 30px;
-    }
-    .image-block {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    canvas, img {
-      max-width: 300px;
-      max-height: 300px;
-      border: 1px solid #ccc;
-      margin-top: 10px;
-    }
-  </style>
+  <meta charset="UTF-8" />
+  <title>UpscalerJS</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <h1>Upscale de Imagem com JavaScript (UpscalerJS)</h1>
-  <input type="file" id="upload" accept="image/*" />
-
-  <div class="image-container">
-    <div class="image-block">
-      <h3>Imagem Original</h3>
-      <img id="originalImage" src="" alt="Original">
-    </div>
-    <div class="image-block">
-      <h3>Imagem Upscalada (IA)</h3>
-      <canvas id="upscaledCanvas"></canvas>
-    </div>
+<h1>UpscalerJS - IA de Imagem</h1>
+<input type="file" id="upload" accept="image/*" />
+<div class="image-container">
+  <div class="image-block">
+    <h3>Original</h3>
+    <img id="originalImage" />
   </div>
-
-  <!-- TensorFlow.js -->
-  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
-
-  <!-- UpscalerJS via Skypack CDN -->
-  <script type="module">
-    import Upscaler from 'https://cdn.skypack.dev/upscaler';
-
-    const upscaler = new Upscaler({
-      model: './esrgan-model-1x/models/esrgan/1x/model.json',
-    });
-
-
-
-    const uploadInput = document.getElementById('upload');
-    const originalImg = document.getElementById('originalImage');
-    const upscaledCanvas = document.getElementById('upscaledCanvas');
-
-    uploadInput.addEventListener('change', async (event) => {
-      const file = event.target.files[0];
-      if (!file) return;
-
-      // Mostrar imagem original
-      const imageURL = URL.createObjectURL(file);
-      originalImg.src = imageURL;
-
-      originalImg.onload = async () => {
-        try {
-          // Realiza o upscale com IA
-          const tensor = await upscaler.upscale(originalImg);
-
-          // Define o tamanho do canvas com base na imagem upscalada
-          const [height, width] = tensor.shape.slice(0, 2);
-          upscaledCanvas.width = width;
-          upscaledCanvas.height = height;
-
-          // Desenha os pixels no canvas
-          await tf.browser.toPixels(tensor, upscaledCanvas);
-        } catch (err) {
-            console.error('Erro ao fazer upscale:', err.message || err);
-            alert('Erro ao fazer upscale: ' + (err.message || err));
-        }
-
-      };
-    });
-  </script>
+  <div class="image-block">
+    <h3>Upscalado</h3>
+    <canvas id="upscaledCanvas"></canvas>
+  </div>
+</div><!-- TensorFlow.js -->
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.14.0/dist/tf.min.js"></script>
+<script type="module" src="./main.js"></script>
 </body>
 </html>

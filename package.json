@@ -1,0 +1,17 @@
+{
+  "name": "upscalerjs-project",
+  "version": "1.0.0",
+  "description": "A project using UpscalerJS for image upscaling.",
+  "main": "main.js",
+  "scripts": {
+    "start": "npx http-server",
+    "start:dev": "npx http-server -c-1 --cors"
+  },
+  "dependencies": {
+    "@tensorflow/tfjs": "^4.0.0",
+    "http-server": "^14.0.0"
+  },
+  "devDependencies": {},
+  "author": "",
+  "license": "ISC"
+}
